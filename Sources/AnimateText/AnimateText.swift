@@ -34,6 +34,8 @@ public struct AnimateText<E: ATTextAnimateEffect>: View {
     /// The type used to split text.
     var type: ATUnitType = .letters
     
+    var fontSize: CGFloat = 24
+    
     /// Custom user info for the effect.
     var userInfo: Any? = nil
     
@@ -62,9 +64,10 @@ public struct AnimateText<E: ATTextAnimateEffect>: View {
     ///   - type: The type used to split text. `ATUnitType`
     ///   - userInfo: Custom user info for the effect.
     ///
-    public init(_ text: Binding<String>, type: ATUnitType = .letters, userInfo: Any? = nil) {
+    public init(_ text: Binding<String>, type: ATUnitType = .letters, fontSize: CGFloat, userInfo: Any? = nil) {
         _text = text
         self.type = type
+        self.fontSize = fontSize
         self.userInfo = userInfo
     }
     
@@ -169,7 +172,7 @@ public struct AnimateText<E: ATTextAnimateEffect>: View {
                 letters.append(String(char))
             }
             
-            let wordWidth = word.width(withConstrainedHeight: 1000, font: .systemFont(ofSize: 24, weight: .heavy)) // change the size if you change a font on your contentView
+            let wordWidth = word.width(withConstrainedHeight: 1000, font: .systemFont(ofSize: fontSize, weight: .heavy)) // change the size if you change a font on your contentView
             
             if index == 0 {
                 lines[currentLineIndex].append(contentsOf: letters)

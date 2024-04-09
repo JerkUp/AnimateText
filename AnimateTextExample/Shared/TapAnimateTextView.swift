@@ -22,8 +22,8 @@ struct TapAnimateTextView<E: ATTextAnimateEffect>: View {
             VStack(alignment: .leading) {
                 Spacer()
                 ZStack(alignment: .leading) {
-                    AnimateText<E>($text, type: type, userInfo: userInfo)
-                        .font(.custom("Helvetica SemiBold", size: 30))
+                    AnimateText<E>($text, type: type, fontSize: 24, userInfo: userInfo)
+                        .font(.custom("Helvetica SemiBold", size: 24))
                         .padding(.vertical)
                     if text.isEmpty {
                         VStack(alignment: .leading) {

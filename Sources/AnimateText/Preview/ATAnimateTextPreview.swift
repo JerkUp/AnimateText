@@ -40,7 +40,7 @@ public struct ATAnimateTextPreview<E: ATTextAnimateEffect>: View {
         GeometryReader { proxy in
             VStack(alignment: .leading) {
                 Spacer()
-                AnimateText<E>($text, type: type)
+                AnimateText<E>($text, type: type, fontSize: 24)
                     .font(.largeTitle) // remember that if you change the font, you should change the size of wordWidth in struct "AnimateText"
                     .padding()
                     .background(
