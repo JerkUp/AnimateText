@@ -77,17 +77,26 @@ public struct AnimateText<E: ATTextAnimateEffect>: View {
                 Text(text)
                     .takeSize($size)
             .multilineTextAlignment(.leading)
-            }else {
+            } else {
                 GeometryReader { geometry in
                     VStack(alignment: .leading, spacing: 0) {
-                        ForEach(splitElements(containerWidth: geometry.size.width), id: \.self) { lineElements in
+                        let lineElements = splitElements(containerWidth: geometry.size.width)
+                        let lines = Array(lineElements.enumerated())
+                        let lengths = lineElements.map{ $0.count }
+                        
+                        ForEach(lines, id: \.element) { lineIndex, element in
+                            let lineElements = element
+                            let slice = lengths.prefix(lineIndex)
+                            let startIndex = slice.reduce(0, +)
+
                             HStack {
                                 Spacer()
                                 HStack(spacing: 0) {
+                                    
                                     ForEach(Array(lineElements.enumerated()), id: \.offset) { index, element in
                                         let data = ATElementData(element: element,
                                                                  type: self.type,
-                                                                 index: index,
+                                                                 index: startIndex + index,
                                                                  count: elements.count,
                                                                  value: value,
                                                                  size: size)
@@ -101,6 +110,8 @@ public struct AnimateText<E: ATTextAnimateEffect>: View {
                                 .fixedSize(horizontal: true, vertical: true)
                                 Spacer()
                             }
+                            
+//                            startIndex += lineElements.count
                         }
                     }
                     .onAppear {
@@ -188,6 +199,7 @@ public struct AnimateText<E: ATTextAnimateEffect>: View {
                 }
             }
         }
+        
         return lines
     }
 }
