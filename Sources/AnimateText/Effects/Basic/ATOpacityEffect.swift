@@ -39,7 +39,7 @@ public struct ATOpacityEffect: ATTextAnimateEffect {
     public func body(content: Content) -> some View {
         content
             .opacity(data.value)
-            .animation(.easeInOut.delay(Double(data.index) * 0.03), value: data.value)
+            .animation(.easeInOut.delay(Double(data.index) * 0.02), value: data.value)
     }
 }
 
